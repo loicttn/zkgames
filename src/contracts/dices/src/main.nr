@@ -71,7 +71,8 @@ contract Dices {
     }
     // docs:end:shuffle
 
-    unconstrained fn dice(addr: Field, game_id: u96) -> u8 {
+    unconstrained fn dice(addr: Field, _game_id: Field) -> u8 {
+        let game_id: u96 = _game_id as u96;
         let x = [addr, game_id as Field];
         let diceId = pedersen_hash(x, 10);
         (storage.dices.at(diceId).read() as u8 % 6) + 1

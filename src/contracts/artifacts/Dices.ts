@@ -85,8 +85,8 @@ export class DicesContract extends ContractBase {
     /** compute_note_hash_and_nullifier(_: field, _: field, _: field, _: array) */
     compute_note_hash_and_nullifier: ((_: FieldLike, _: FieldLike, _: FieldLike, _: FieldLike[]) => ContractFunctionInteraction) & Pick<ContractMethod, 'selector'>;
 
-    /** dice(addr: field, game_id: integer) */
-    dice: ((addr: FieldLike, game_id: (bigint | number)) => ContractFunctionInteraction) & Pick<ContractMethod, 'selector'>;
+    /** dice(addr: field, _game_id: field) */
+    dice: ((addr: FieldLike, _game_id: FieldLike) => ContractFunctionInteraction) & Pick<ContractMethod, 'selector'>;
 
     /** readDice(addr: field, game_id: integer) */
     readDice: ((addr: FieldLike, game_id: (bigint | number)) => ContractFunctionInteraction) & Pick<ContractMethod, 'selector'>;
