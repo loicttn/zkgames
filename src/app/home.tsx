@@ -30,11 +30,16 @@ export function Home() {
         '0x16efad912187aa8ef0dcc6ef4f3743ab327b06465d4d229943f2fe3f88b06ad7',
         '0x16efad912187aa8ef0dcc6ef4f3743ab327b06465d4d229943f2fe3f88b06ad2',
       ],
-      playerHashes: [],
-      board: [],
-      finishLines: [],
+      seedHashes: [],
+      board: [
+        [1, 5, 8, 0],
+        [12, 15, 17, 20],
+        [1, 5, 0, 0],
+        [52, 0, 0, 0],
+      ],
       turn: '',
       lastMove: 1,
+      finishLines: [],
     };
 
     // Generate a random board
@@ -45,26 +50,15 @@ export function Home() {
       '0x16efad912187aa8ef0dcc6ef4f3743ab327b06465d4d229943f2fe3f88b06ad2',
     ];
 
-    for (let i = 0; i < 56; i++) {
-      game.board.push(Math.floor(Math.random() * 4) as 0 | 1 | 2 | 3);
-    }
-
-    // Generate random finish lines
-    for (let i = 0; i < 4; i++) {
-      game.finishLines.push(Math.floor(Math.random() * 56));
-    }
-
     game.turn = game.players[Math.floor(Math.random() * 4)];
+    game.turn = game.players[0];
 
     return game;
   }
 
   const game = createRandomGame();
 
-  console.log('BBB', isLoadingWallet, selectedWallet, selectWalletError);
-
   const handleSelectGame = () => {
-    console.log('CCC');
     setCurrentGame('dada');
   };
 
@@ -89,12 +83,12 @@ export function Home() {
           <div className={styles.menu}>
             <h1>Select a Game</h1>
             <button className={styles.menubtn} onClick={handleSelectGame}>
-              My little Dada
+              🐎 My little Dada
             </button>
           </div>
         )}
-        {currentGame === 'dada' && !isLoadingWallet && selectedWallet?.address !== null ? (
-          <DadaGame game={game} address={selectedWallet?.address.toString()} />
+        {currentGame === 'dada' && !isLoadingWallet && selectedWallet?.address ? (
+          <DadaGame game={game} wallet={selectedWallet} />
         ) : (
           <></>
         )}
