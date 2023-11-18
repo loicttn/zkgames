@@ -82,13 +82,43 @@ export class zkPetitsChevauxContract extends ContractBase {
     /** _constructor(dicesAddress: field) */
     _constructor: ((dicesAddress: FieldLike) => ContractFunctionInteraction) & Pick<ContractMethod, 'selector'>;
 
+    /** _play(seedHash: field, player: field, move: integer) */
+    _play: ((seedHash: FieldLike, player: FieldLike, move: (bigint | number)) => ContractFunctionInteraction) & Pick<ContractMethod, 'selector'>;
+
     /** _register(user: field, seedHash: field) */
     _register: ((user: FieldLike, seedHash: FieldLike) => ContractFunctionInteraction) & Pick<ContractMethod, 'selector'>;
 
     /** compute_note_hash_and_nullifier(_: field, _: field, _: field, _: array) */
     compute_note_hash_and_nullifier: ((_: FieldLike, _: FieldLike, _: FieldLike, _: FieldLike[]) => ContractFunctionInteraction) & Pick<ContractMethod, 'selector'>;
 
+    /** debug() */
+    debug: (() => ContractFunctionInteraction) & Pick<ContractMethod, 'selector'>;
+
+    /** dices() */
+    dices: (() => ContractFunctionInteraction) & Pick<ContractMethod, 'selector'>;
+
+    /** horses() */
+    horses: (() => ContractFunctionInteraction) & Pick<ContractMethod, 'selector'>;
+
+    /** last_timestamp() */
+    last_timestamp: (() => ContractFunctionInteraction) & Pick<ContractMethod, 'selector'>;
+
+    /** play(dicesAddress: field, seed: integer, player: field, move: integer) */
+    play: ((dicesAddress: FieldLike, seed: (bigint | number), player: FieldLike, move: (bigint | number)) => ContractFunctionInteraction) & Pick<ContractMethod, 'selector'>;
+
+    /** players() */
+    players: (() => ContractFunctionInteraction) & Pick<ContractMethod, 'selector'>;
+
     /** register(dicesAddress: field, seed: integer) */
     register: ((dicesAddress: FieldLike, seed: (bigint | number)) => ContractFunctionInteraction) & Pick<ContractMethod, 'selector'>;
+
+    /** round() */
+    round: (() => ContractFunctionInteraction) & Pick<ContractMethod, 'selector'>;
+
+    /** seedHashes() */
+    seedHashes: (() => ContractFunctionInteraction) & Pick<ContractMethod, 'selector'>;
+
+    /** winner() */
+    winner: (() => ContractFunctionInteraction) & Pick<ContractMethod, 'selector'>;
   };
 }

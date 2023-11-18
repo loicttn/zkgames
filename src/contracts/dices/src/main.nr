@@ -77,6 +77,12 @@ contract Dices {
         (storage.dices.at(diceId).read() as u8 % 6) + 1
     }
 
+    #[aztec(public)]
+    fn readDice(addr: Field, game_id: u96) -> u8 {
+        let x = [addr, game_id as Field];
+        let diceId = pedersen_hash(x, 10);
+        (storage.dices.at(diceId).read() as u8 % 6) + 1
+    }
 
     // Below this point is the stuff of nightmares.
     // This should ideally not be required. What do we do if vastly different types of serialized_notes?

@@ -88,6 +88,9 @@ export class DicesContract extends ContractBase {
     /** dice(addr: field, game_id: integer) */
     dice: ((addr: FieldLike, game_id: (bigint | number)) => ContractFunctionInteraction) & Pick<ContractMethod, 'selector'>;
 
+    /** readDice(addr: field, game_id: integer) */
+    readDice: ((addr: FieldLike, game_id: (bigint | number)) => ContractFunctionInteraction) & Pick<ContractMethod, 'selector'>;
+
     /** roll(game_id: integer, seed: integer) */
     roll: ((game_id: (bigint | number), seed: (bigint | number)) => ContractFunctionInteraction) & Pick<ContractMethod, 'selector'>;
   };

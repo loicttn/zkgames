@@ -360,6 +360,275 @@
       "verificationKey": "0000000200000800000000740000000f00000003515f3109623eb3c25aa5b16a1a79fd558bac7a7ce62c4560a8c537c77ce80dd339128d1d37b6582ee9e6df9567efb64313471dfa18f520f9ce53161b50dbf7731bc5f900000003515f322bc4cce83a486a92c92fd59bd84e0f92595baa639fc2ed86b00ffa0dfded2a092a669a3bdb7a273a015eda494457cc7ed5236f26cee330c290d45a33b9daa94800000003515f332729426c008c085a81bd34d8ef12dd31e80130339ef99d50013a89e4558eee6d0fa4ffe2ee7b7b62eb92608b2251ac31396a718f9b34978888789042b790a30100000003515f342be6b6824a913eb7a57b03cb1ee7bfb4de02f2f65fe8a4e97baa7766ddb353a82a8a25c49dc63778cd9fe96173f12a2bc77f3682f4c4448f98f1df82c75234a100000003515f351f85760d6ab567465aadc2f180af9eae3800e6958fec96aef53fd8a7b195d7c000c6267a0dd5cfc22b3fe804f53e266069c0e36f51885baec1e7e67650c62e170000000c515f41524954484d455449430d9d0f8ece2aa12012fa21e6e5c859e97bd5704e5c122064a66051294bc5e04213f61f54a0ebdf6fee4d4a6ecf693478191de0c2899bcd8e86a636c8d3eff43400000003515f43224a99d02c86336737c8dd5b746c40d2be6aead8393889a76a18d664029096e90f7fe81adcc92a74350eada9622ac453f49ebac24a066a1f83b394df54dfa0130000000c515f46495845445f42415345060e8a013ed289c2f9fd7473b04f6594b138ddb4b4cf6b901622a14088f04b8d2c83ff74fce56e3d5573b99c7b26d85d5046ce0c6559506acb7a675e7713eb3a00000007515f4c4f4749430721a91cb8da4b917e054f72147e1760cfe0ef3d45090ac0f4961d84ec1996961a25e787b26bd8b50b1a99450f77a424a83513c2b33af268cd253b0587ff50c700000003515f4d05dbd8623b8652511e1eb38d38887a69eceb082f807514f09e127237c5213b401b9325b48c6c225968002318095f89d0ef9cf629b2b7f0172e03bc39aacf6ed800000007515f52414e474504b57a3805e41df328f5ca9aefa40fad5917391543b7b65c6476e60b8f72e9ad07c92f3b3e11c8feae96dedc4b14a6226ef3201244f37cfc1ee5b96781f48d2b000000075349474d415f3125001d1954a18571eaa007144c5a567bb0d2be4def08a8be918b8c05e3b27d312c59ed41e09e144eab5de77ca89a2fd783be702a47c951d3112e3de02ce6e47c000000075349474d415f3223994e6a23618e60fa01c449a7ab88378709197e186d48d604bfb6931ffb15ad11c5ec7a0700570f80088fd5198ab5d5c227f2ad2a455a6edeec024156bb7beb000000075349474d415f3300cda5845f23468a13275d18bddae27c6bb189cf9aa95b6a03a0cb6688c7e8d829639b45cf8607c525cc400b55ebf90205f2f378626dc3406cc59b2d1b474fba000000075349474d415f342d299e7928496ea2d37f10b43afd6a80c90a33b483090d18069ffa275eedb2fc2f82121e8de43dc036d99b478b6227ceef34248939987a19011f065d8b5cef5c0000000010000000000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f"
     },
     {
+      "name": "readDice",
+      "functionType": "open",
+      "isInternal": false,
+      "parameters": [
+        {
+          "name": "addr",
+          "type": {
+            "kind": "field"
+          },
+          "visibility": "private"
+        },
+        {
+          "name": "game_id",
+          "type": {
+            "kind": "integer",
+            "sign": "unsigned",
+            "width": 96
+          },
+          "visibility": "private"
+        }
+      ],
+      "returnTypes": [
+        {
+          "kind": "struct",
+          "path": "aztec::abi::PublicCircuitPublicInputs",
+          "fields": [
+            {
+              "name": "call_context",
+              "type": {
+                "kind": "struct",
+                "path": "aztec::abi::CallContext",
+                "fields": [
+                  {
+                    "name": "msg_sender",
+                    "type": {
+                      "kind": "field"
+                    }
+                  },
+                  {
+                    "name": "storage_contract_address",
+                    "type": {
+                      "kind": "field"
+                    }
+                  },
+                  {
+                    "name": "portal_contract_address",
+                    "type": {
+                      "kind": "field"
+                    }
+                  },
+                  {
+                    "name": "function_selector",
+                    "type": {
+                      "kind": "field"
+                    }
+                  },
+                  {
+                    "name": "is_delegate_call",
+                    "type": {
+                      "kind": "boolean"
+                    }
+                  },
+                  {
+                    "name": "is_static_call",
+                    "type": {
+                      "kind": "boolean"
+                    }
+                  },
+                  {
+                    "name": "is_contract_deployment",
+                    "type": {
+                      "kind": "boolean"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "args_hash",
+              "type": {
+                "kind": "field"
+              }
+            },
+            {
+              "name": "return_values",
+              "type": {
+                "kind": "array",
+                "length": 4,
+                "type": {
+                  "kind": "field"
+                }
+              }
+            },
+            {
+              "name": "contract_storage_update_requests",
+              "type": {
+                "kind": "array",
+                "length": 16,
+                "type": {
+                  "kind": "struct",
+                  "path": "aztec::abi::ContractStorageUpdateRequest",
+                  "fields": [
+                    {
+                      "name": "storage_slot",
+                      "type": {
+                        "kind": "field"
+                      }
+                    },
+                    {
+                      "name": "old_value",
+                      "type": {
+                        "kind": "field"
+                      }
+                    },
+                    {
+                      "name": "new_value",
+                      "type": {
+                        "kind": "field"
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "contract_storage_read",
+              "type": {
+                "kind": "array",
+                "length": 16,
+                "type": {
+                  "kind": "struct",
+                  "path": "aztec::abi::ContractStorageRead",
+                  "fields": [
+                    {
+                      "name": "storage_slot",
+                      "type": {
+                        "kind": "field"
+                      }
+                    },
+                    {
+                      "name": "value",
+                      "type": {
+                        "kind": "field"
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "public_call_stack",
+              "type": {
+                "kind": "array",
+                "length": 4,
+                "type": {
+                  "kind": "field"
+                }
+              }
+            },
+            {
+              "name": "new_commitments",
+              "type": {
+                "kind": "array",
+                "length": 16,
+                "type": {
+                  "kind": "field"
+                }
+              }
+            },
+            {
+              "name": "new_nullifiers",
+              "type": {
+                "kind": "array",
+                "length": 16,
+                "type": {
+                  "kind": "field"
+                }
+              }
+            },
+            {
+              "name": "new_l2_to_l1_msgs",
+              "type": {
+                "kind": "array",
+                "length": 2,
+                "type": {
+                  "kind": "field"
+                }
+              }
+            },
+            {
+              "name": "unencrypted_logs_hash",
+              "type": {
+                "kind": "array",
+                "length": 2,
+                "type": {
+                  "kind": "field"
+                }
+              }
+            },
+            {
+              "name": "unencrypted_log_preimages_length",
+              "type": {
+                "kind": "field"
+              }
+            },
+            {
+              "name": "block_data",
+              "type": {
+                "kind": "struct",
+                "path": "aztec::abi::HistoricBlockData",
+                "fields": [
+                  {
+                    "name": "note_hash_tree_root",
+                    "type": {
+                      "kind": "field"
+                    }
+                  },
+                  {
+                    "name": "nullifier_tree_root",
+                    "type": {
+                      "kind": "field"
+                    }
+                  },
+                  {
+                    "name": "contract_tree_root",
+                    "type": {
+                      "kind": "field"
+                    }
+                  },
+                  {
+                    "name": "l1_to_l2_messages_tree_root",
+                    "type": {
+                      "kind": "field"
+                    }
+                  },
+                  {
+                    "name": "blocks_tree_root",
+                    "type": {
+                      "kind": "field"
+                    }
+                  },
+                  {
+                    "name": "public_data_tree_root",
+                    "type": {
+                      "kind": "field"
+                    }
+                  },
+                  {
+                    "name": "global_variables_hash",
+                    "type": {
+                      "kind": "field"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "prover_address",
+              "type": {
+                "kind": "field"
+              }
+            }
+          ]
+        }
+      ],
+      "bytecode": "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",
+      "verificationKey": "0000000200000800000000740000000f00000003515f3109623eb3c25aa5b16a1a79fd558bac7a7ce62c4560a8c537c77ce80dd339128d1d37b6582ee9e6df9567efb64313471dfa18f520f9ce53161b50dbf7731bc5f900000003515f322bc4cce83a486a92c92fd59bd84e0f92595baa639fc2ed86b00ffa0dfded2a092a669a3bdb7a273a015eda494457cc7ed5236f26cee330c290d45a33b9daa94800000003515f332729426c008c085a81bd34d8ef12dd31e80130339ef99d50013a89e4558eee6d0fa4ffe2ee7b7b62eb92608b2251ac31396a718f9b34978888789042b790a30100000003515f342be6b6824a913eb7a57b03cb1ee7bfb4de02f2f65fe8a4e97baa7766ddb353a82a8a25c49dc63778cd9fe96173f12a2bc77f3682f4c4448f98f1df82c75234a100000003515f351f85760d6ab567465aadc2f180af9eae3800e6958fec96aef53fd8a7b195d7c000c6267a0dd5cfc22b3fe804f53e266069c0e36f51885baec1e7e67650c62e170000000c515f41524954484d455449430d9d0f8ece2aa12012fa21e6e5c859e97bd5704e5c122064a66051294bc5e04213f61f54a0ebdf6fee4d4a6ecf693478191de0c2899bcd8e86a636c8d3eff43400000003515f43224a99d02c86336737c8dd5b746c40d2be6aead8393889a76a18d664029096e90f7fe81adcc92a74350eada9622ac453f49ebac24a066a1f83b394df54dfa0130000000c515f46495845445f42415345060e8a013ed289c2f9fd7473b04f6594b138ddb4b4cf6b901622a14088f04b8d2c83ff74fce56e3d5573b99c7b26d85d5046ce0c6559506acb7a675e7713eb3a00000007515f4c4f4749430721a91cb8da4b917e054f72147e1760cfe0ef3d45090ac0f4961d84ec1996961a25e787b26bd8b50b1a99450f77a424a83513c2b33af268cd253b0587ff50c700000003515f4d05dbd8623b8652511e1eb38d38887a69eceb082f807514f09e127237c5213b401b9325b48c6c225968002318095f89d0ef9cf629b2b7f0172e03bc39aacf6ed800000007515f52414e474504b57a3805e41df328f5ca9aefa40fad5917391543b7b65c6476e60b8f72e9ad07c92f3b3e11c8feae96dedc4b14a6226ef3201244f37cfc1ee5b96781f48d2b000000075349474d415f3125001d1954a18571eaa007144c5a567bb0d2be4def08a8be918b8c05e3b27d312c59ed41e09e144eab5de77ca89a2fd783be702a47c951d3112e3de02ce6e47c000000075349474d415f3223994e6a23618e60fa01c449a7ab88378709197e186d48d604bfb6931ffb15ad11c5ec7a0700570f80088fd5198ab5d5c227f2ad2a455a6edeec024156bb7beb000000075349474d415f3300cda5845f23468a13275d18bddae27c6bb189cf9aa95b6a03a0cb6688c7e8d829639b45cf8607c525cc400b55ebf90205f2f378626dc3406cc59b2d1b474fba000000075349474d415f342d299e7928496ea2d37f10b43afd6a80c90a33b483090d18069ffa275eedb2fc2f82121e8de43dc036d99b478b6227ceef34248939987a19011f065d8b5cef5c0000000010000000000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f"
+    },
+    {
       "name": "roll",
       "functionType": "secret",
       "isInternal": false,
@@ -395,11 +664,12 @@
       "eJyrVsrJT04syczPK1ayqq6tBQAz9wY7",
       "eJyrVsrJT04syczPK1ayqq6tBQAz9wY7",
       "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",
+      "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V1XkV1XkV1XkV1XkV1XkV1XkV1XkV1XkV1XkV1XkV1XkV1XkV1XkV1XkV1XkV1XkV1XkV1XkV1XkV1XkV1XkV1XkV1XkV1XkV1XkV1XkV1XkV1XkV1XkV1XkV1XkV1XkV1XkV1XkV1XkV1XkV1XkV1XkV1XkV1XkV1XkV1XkV1XkV1XkV1XkV1XkV1XkV1XkV1XkV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kV03kVynyqxT5VYr8KkV+lSK/SpFfpcivUuRXKfKrFPlVivwqRX6VIr9KkV+lyK9S5Fcp8qsU+VWK/CpFfpUiv0qRX6XIr1LkVynyqxT5VYr8KkV+lSK/SpFfpcivUuRXKfKrFPlVivwqRX6VIr9KkV+lyK9S5Fcp8qsU+VWK/CpFfpUiv0qRX6XIr1LkVynyqxT5VYr8KkV+lSK/SpFfpcivUuRXKfKrFPlVivwqRX6VIr9KkV+lyK9S5Fcp8qsU+VWK/CpFfpUiv0qRX6XIr1LkVynyqxT5VYr8KkV+lSK/SpFfpcivUuRXKfKrFPlVivwqRX6VIr9KkV+lyK9S5Fcp8qsU+VWK/CpFfpUiv0qRX6XIr1LkVynyqxT5VYr8KkV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+1UV+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"
     ],
     "fileMap": {
       "1": {
-        "source": "mod types;\n\n// Minimal token implementation that supports `AuthWit` accounts.\n// The auth message follows a similar pattern to the cross-chain message and includes a designated caller.\n// The designated caller is ALWAYS used here, and not based on a flag as cross-chain.\n// message hash = H([caller, contract, selector, ...args])\n// To be read as `caller` calls function at `contract` defined by `selector` with `args`\n// Including a nonce in the message hash ensures that the message can only be used once.\n\ncontract Dices {\n\n    use dep::aztec::{\n        hash::pedersen_hash,\n        selector::compute_selector,\n        context::{PrivateContext, PublicContext, Context},\n        types::type_serialization::{\n            field_serialization::{FieldSerializationMethods, FIELD_SERIALIZED_LEN},\n        },\n        state_vars::{map::Map, public_state::PublicState, set::Set},\n        types::address::{AztecAddress},\n    };\n\n    // docs:start:storage_struct\n    struct Storage {\n        dices: Map<PublicState<Field, FIELD_SERIALIZED_LEN>>,\n    }\n    // docs:end:storage_struct\n\n    // docs:start:storage_init\n    impl Storage {\n        fn init(context: Context) -> Self {\n            Storage {\n                // docs:start:storage_admin_init\n                dices: Map::new(\n                    context,\n                    1,\n                    |context, slot| {\n                        PublicState::new(\n                            context,\n                            slot,\n                            FieldSerializationMethods,\n                        )\n                    },\n                )\n            }\n        }\n    }\n    // docs:end:storage_init\n\n    // docs:start:constructor\n    #[aztec(private)]\n    fn constructor() {\n    }\n    // docs:end:constructor\n\n    #[aztec(public)]\n    internal fn _roll(diceId: Field, seed: Field) {\n        let dice = storage.dices.at(diceId).read();\n        let newDice = pedersen_hash([dice as Field, seed as Field], 10);\n        storage.dices.at(diceId).write(newDice);\n    }\n\n    // docs:start:shuffle\n    #[aztec(private)]\n    fn roll(game_id: u96, seed: u96) {\n        let msg_sender = context.msg_sender();\n        let diceId = pedersen_hash([msg_sender, game_id as Field], 10);\n        \n        let getterSelector = compute_selector(\"_roll(Field,Field)\");\n        context.call_public_function(context.this_address(), getterSelector, [diceId, seed as Field]);\n    }\n    // docs:end:shuffle\n\n    unconstrained fn dice(addr: Field, game_id: u96) -> u8 {\n        let x = [addr, game_id as Field];\n        let diceId = pedersen_hash(x, 10);\n        (storage.dices.at(diceId).read() as u8 % 6) + 1\n    }\n\n\n    // Below this point is the stuff of nightmares.\n    // This should ideally not be required. What do we do if vastly different types of serialized_notes?\n\n    // docs:start:compute_note_hash_and_nullifier\n    // Computes note hash and nullifier.\n    // Note 1: Needs to be defined by every contract producing logs.\n    // Note 2: Having it in all the contracts gives us the ability to compute the note hash and nullifier differently for different kind of notes.\n    unconstrained fn compute_note_hash_and_nullifier(_: Field, _: Field, _: Field, _: [Field; 0]) -> [Field; 4] {\n        [0, 0, 0, 0]\n    }\n    // docs:end:compute_note_hash_and_nullifier\n}\n// docs:end:token_all\n",
+        "source": "mod types;\n\n// Minimal token implementation that supports `AuthWit` accounts.\n// The auth message follows a similar pattern to the cross-chain message and includes a designated caller.\n// The designated caller is ALWAYS used here, and not based on a flag as cross-chain.\n// message hash = H([caller, contract, selector, ...args])\n// To be read as `caller` calls function at `contract` defined by `selector` with `args`\n// Including a nonce in the message hash ensures that the message can only be used once.\n\ncontract Dices {\n\n    use dep::aztec::{\n        hash::pedersen_hash,\n        selector::compute_selector,\n        context::{PrivateContext, PublicContext, Context},\n        types::type_serialization::{\n            field_serialization::{FieldSerializationMethods, FIELD_SERIALIZED_LEN},\n        },\n        state_vars::{map::Map, public_state::PublicState, set::Set},\n        types::address::{AztecAddress},\n    };\n\n    // docs:start:storage_struct\n    struct Storage {\n        dices: Map<PublicState<Field, FIELD_SERIALIZED_LEN>>,\n    }\n    // docs:end:storage_struct\n\n    // docs:start:storage_init\n    impl Storage {\n        fn init(context: Context) -> Self {\n            Storage {\n                // docs:start:storage_admin_init\n                dices: Map::new(\n                    context,\n                    1,\n                    |context, slot| {\n                        PublicState::new(\n                            context,\n                            slot,\n                            FieldSerializationMethods,\n                        )\n                    },\n                )\n            }\n        }\n    }\n    // docs:end:storage_init\n\n    // docs:start:constructor\n    #[aztec(private)]\n    fn constructor() {\n    }\n    // docs:end:constructor\n\n    #[aztec(public)]\n    internal fn _roll(diceId: Field, seed: Field) {\n        let dice = storage.dices.at(diceId).read();\n        let newDice = pedersen_hash([dice as Field, seed as Field], 10);\n        storage.dices.at(diceId).write(newDice);\n    }\n\n    // docs:start:shuffle\n    #[aztec(private)]\n    fn roll(game_id: u96, seed: u96) {\n        let msg_sender = context.msg_sender();\n        let diceId = pedersen_hash([msg_sender, game_id as Field], 10);\n        \n        let getterSelector = compute_selector(\"_roll(Field,Field)\");\n        context.call_public_function(context.this_address(), getterSelector, [diceId, seed as Field]);\n    }\n    // docs:end:shuffle\n\n    unconstrained fn dice(addr: Field, game_id: u96) -> u8 {\n        let x = [addr, game_id as Field];\n        let diceId = pedersen_hash(x, 10);\n        (storage.dices.at(diceId).read() as u8 % 6) + 1\n    }\n\n    #[aztec(public)]\n    fn readDice(addr: Field, game_id: u96) -> u8 {\n        let x = [addr, game_id as Field];\n        let diceId = pedersen_hash(x, 10);\n        (storage.dices.at(diceId).read() as u8 % 6) + 1\n    }\n\n\n    // Below this point is the stuff of nightmares.\n    // This should ideally not be required. What do we do if vastly different types of serialized_notes?\n\n    // docs:start:compute_note_hash_and_nullifier\n    // Computes note hash and nullifier.\n    // Note 1: Needs to be defined by every contract producing logs.\n    // Note 2: Having it in all the contracts gives us the ability to compute the note hash and nullifier differently for different kind of notes.\n    unconstrained fn compute_note_hash_and_nullifier(_: Field, _: Field, _: Field, _: [Field; 0]) -> [Field; 4] {\n        [0, 0, 0, 0]\n    }\n    // docs:end:compute_note_hash_and_nullifier\n}\n// docs:end:token_all\n",
         "path": "/home/mortimr/projects/ethglobal/turkish/zkgames/src/contracts/dices/src/main.nr"
       },
       "35": {
@@ -441,6 +711,10 @@
       "76": {
         "source": "use crate::context::{Context};\nuse crate::oracle::storage::storage_read;\nuse crate::oracle::storage::storage_write;\nuse crate::types::type_serialization::TypeSerializationInterface;\nuse dep::std::option::Option;\n\n// docs:start:public_state_struct\nstruct PublicState<T, T_SERIALIZED_LEN> {\n    context: Context,\n    storage_slot: Field,\n    serialization_methods: TypeSerializationInterface<T, T_SERIALIZED_LEN>,\n}\n// docs:end:public_state_struct\n\nimpl<T, T_SERIALIZED_LEN> PublicState<T, T_SERIALIZED_LEN> {\n    // docs:start:public_state_struct_new\n    pub fn new(\n        // Note: Passing the contexts to new(...) just to have an interface compatible with a Map.\n        context: Context,\n        storage_slot: Field,\n        serialization_methods: TypeSerializationInterface<T, T_SERIALIZED_LEN>,\n    ) -> Self {\n        assert(storage_slot != 0, \"Storage slot 0 not allowed. Storage slots must start from 1.\");\n        PublicState {\n            context,\n            storage_slot,\n            serialization_methods,\n        }\n    }\n    // docs:end:public_state_struct_new\n\n    // docs:start:public_state_struct_read\n    pub fn read(self) -> T {\n        assert(self.context.private.is_none(), \"Public state writes only supported in public functions\");\n        storage_read(self.storage_slot, self.serialization_methods.deserialize)\n    }\n    // docs:end:public_state_struct_read\n\n    // docs:start:public_state_struct_write\n    pub fn write(self, value: T) {\n        assert(self.context.private.is_none(), \"Public state writes only supported in public functions\");\n        let serialize = self.serialization_methods.serialize;\n        let fields = serialize(value);\n        storage_write(self.storage_slot, fields);\n    }\n    // docs:end:public_state_struct_write\n}\n",
         "path": "/aztec/state_vars/public_state.nr"
+      },
+      "82": {
+        "source": "\nstruct BoundedVec<T, MaxLen> {\n    storage: [T; MaxLen],\n    len: Field,\n}\n\nimpl<T, MaxLen> BoundedVec<T, MaxLen> {\n    pub fn new(initial_value: T) -> Self {\n        BoundedVec { storage: [initial_value; MaxLen], len: 0 }\n    }\n\n    pub fn get(mut self: Self, index: Field) -> T {\n        assert(index as u64 < self.len as u64);\n        self.storage[index]\n    }\n\n    pub fn get_unchecked(mut self: Self, index: Field) -> T {\n        self.storage[index]\n    }\n\n    pub fn push(&mut self, elem: T) {\n        assert(self.len as u64 < MaxLen as u64);\n\n        self.storage[self.len] = elem;\n        self.len += 1;\n    }\n\n    pub fn push_array<Len>(&mut self, array: [T; Len]) {\n        let newLen = self.len + array.len();\n        assert(newLen as u64 <= MaxLen as u64);\n        for i in 0..array.len() {\n            self.storage[self.len + i] = array[i];\n        }\n        self.len = newLen;\n    }\n\n    pub fn pop(&mut self) -> T {\n        assert(self.len as u64 > 0);\n\n        let elem = self.storage[self.len - 1];\n        self.len -= 1;\n        elem\n    }\n\n    pub fn any<Env>(self, predicate: fn[Env](T) -> bool) -> bool {\n        let mut ret = false;\n        let mut exceeded_len = false;\n        for i in 0..MaxLen {\n            exceeded_len |= i == self.len;\n            if (!exceeded_len) {\n                ret |= predicate(self.storage[i]);\n            }\n        }\n        ret\n    }\n}\n\n#[test]\nfn test_vec_push_pop() {\n    let mut vec: BoundedVec<Field, 3> = BoundedVec::new(0);\n    assert(vec.len == 0);\n    vec.push(2);\n    assert(vec.len == 1);\n    vec.push(4);\n    assert(vec.len == 2);\n    vec.push(6);\n    assert(vec.len == 3);\n    let x = vec.pop();\n    assert(x == 6);\n    assert(vec.len == 2);\n    assert(vec.get(0) == 2);\n    assert(vec.get(1) == 4);\n}\n\n#[test]\nfn test_vec_push_array() {\n    let mut vec: BoundedVec<Field, 3> = BoundedVec::new(0);\n    vec.push_array([2, 4]);\n    assert(vec.len == 2);\n    assert(vec.get(0) == 2);\n    assert(vec.get(1) == 4);\n}\n\n#[test(should_fail)]\nfn test_vec_get_out_of_bound() {\n    let mut vec: BoundedVec<Field, 2> = BoundedVec::new(0);\n    vec.push_array([2, 4]);\n    let _x = vec.get(2);\n}\n\n#[test(should_fail)]\nfn test_vec_get_not_declared() {\n    let mut vec: BoundedVec<Field, 2> = BoundedVec::new(0);\n    vec.push_array([2]);\n    let _x = vec.get(1);\n}\n\n#[test(should_fail)]\nfn test_vec_get_uninitialized() {\n    let mut vec: BoundedVec<Field, 2> = BoundedVec::new(0);\n    let _x = vec.get(0);\n}\n\n#[test(should_fail)]\nfn test_vec_push_overflow() {\n    let mut vec: BoundedVec<Field, 1> = BoundedVec::new(0);\n    vec.push(1);\n    vec.push(2);\n}\n\n#[test]\nfn test_vec_any() {\n    let mut vec: BoundedVec<Field, 3> = BoundedVec::new(0);\n    vec.push_array([2, 4, 6]);\n    assert(vec.any(|v| v == 2) == true);\n    assert(vec.any(|v| v == 4) == true);\n    assert(vec.any(|v| v == 6) == true);\n    assert(vec.any(|v| v == 3) == false);\n}\n\n#[test]\nfn test_vec_any_not_default() {\n    let default_value = 1;\n    let mut vec: BoundedVec<Field, 3> = BoundedVec::new(default_value);\n    vec.push_array([2, 4]);\n    assert(vec.any(|v| v == default_value) == false);\n}",
+        "path": "/aztec/types/vec.nr"
       },
       "85": {
         "source": "use crate::types::type_serialization::TypeSerializationInterface;\n\n// docs:start:field_serialization\nglobal FIELD_SERIALIZED_LEN: Field = 1;\n\nfn deserializeField(fields: [Field; FIELD_SERIALIZED_LEN]) -> Field {\n    fields[0]\n}\n\nfn serializeField(value: Field) -> [Field; FIELD_SERIALIZED_LEN] {\n    [value]\n}\n\nglobal FieldSerializationMethods = TypeSerializationInterface {\n    deserialize: deserializeField,\n    serialize: serializeField,\n};\n// docs:end:field_serialization",

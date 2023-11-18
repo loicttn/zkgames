@@ -12,11 +12,21 @@ struct Game {
 
 global GAME_SERIALIZED_LEN: Field = 91;
 
-fn deserializeArr(raw: [Field; GAME_SERIALIZED_LEN]) -> [Field; GAME_SERIALIZED_LEN] {
+global TEST_LEN = 15;
+
+fn deserializeArr(raw: [Field; TEST_LEN]) -> [Field; TEST_LEN] {
 	raw
 }
 
-fn serializeArr(value: [Field; GAME_SERIALIZED_LEN]) -> [Field; GAME_SERIALIZED_LEN] {
+fn serializeArr(value: [Field; TEST_LEN]) -> [Field; TEST_LEN] {
+	value
+}
+
+fn deserializeField4(raw: [Field; 4]) -> [Field; 4] {
+	raw
+}
+
+fn serializeField4(value: [Field; 4]) -> [Field; 4] {
 	value
 }
 
