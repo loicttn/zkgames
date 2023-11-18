@@ -1,10 +1,10 @@
+import { Loader } from '@aztec/aztec-ui';
+import { CompleteAddress } from '@aztec/aztec.js';
+import { useEffect, useState } from 'react';
 import { pxe } from '../../config.js';
 import { Copy } from './copy.js';
 import { Select } from './select.js';
 import styles from './wallet_dropdown.module.scss';
-import { Loader } from '@aztec/aztec-ui';
-import { CompleteAddress } from '@aztec/aztec.js';
-import { useEffect, useState } from 'react';
 
 interface Props {
   selected: CompleteAddress | undefined;
@@ -28,7 +28,7 @@ export function WalletDropdown({ selected, onSelectChange, onError }: Props) {
       setOptions([]);
       onError(e.message);
     });
-  });
+  }, []);
 
   const addresses = wallets
     ? wallets.map(({ address }: CompleteAddress) => {

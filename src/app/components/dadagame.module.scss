@@ -1,0 +1,102 @@
+.game {
+    display: flex;
+    flex-direction: column;
+    margin-top: 25px;
+}
+
+.canvas {
+    width: 500px;
+    height: 500px;
+    margin: auto;
+    transition: box-shadow 0.2s;
+}
+
+.canvasbox {
+    margin-top: 20px;
+    display: flex;
+    width: 550px;
+    height: 550px; 
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); 
+    background-color: white;
+    border-radius: 10px;
+}
+
+.diceface {
+    width: 50px;
+    height: 50px;
+    margin: auto;
+    transition: box-shadow 0.2s;
+    border-radius: 6px;
+}
+
+.list {
+    width: 250px;
+    height: 150px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: left;
+    gap: 7px;
+    transition: box-shadow 0.2s;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h3 {
+    text-align: left;
+    font-weight: bolder;
+    color: #2F1F49;
+    margin-bottom: 8px;
+}
+
+h1 {
+    text-align: left;
+    font-weight: bolder;
+    font-size: 30px;
+    color: #2F1F49;
+}
+
+button {
+    font-weight: bold;
+}
+
+.playing {
+    font-weight: bold;
+}
+
+
+.player {
+    font-size: 14px;
+    display: flex;
+    gap: 10px;
+}
+
+.dice {
+    margin-top:20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    background-color: white;
+    color: black;
+    border: 0px;
+    padding: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    font-size: 15px;
+}
+
+.dice:hover {
+    cursor: pointer;
+    background-color: rgb(244, 244, 244);
+}
