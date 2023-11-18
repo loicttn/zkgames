@@ -111,7 +111,8 @@ contract zkPetitsChevaux {
     }
 
     #[aztec(private)]
-    fn register(dicesAddress: Field, seed: u96) {
+    fn register(dicesAddress: Field, _seed: Field) {
+        let seed: u96 = _seed as u96;
         let rollSelector = compute_selector("roll(u96,u96)");
         let _ = context.call_private_function(dicesAddress, rollSelector, [0, seed as Field]); 
         let seedHash = pedersen_hash([seed as Field], 10);
@@ -142,7 +143,9 @@ contract zkPetitsChevaux {
     }
 
     #[aztec(private)]
-    fn play(dicesAddress: Field, seed: u96, player: Field, move: u8) {
+    fn play(dicesAddress: Field, _seed: Field, player: Field, _move: Field) {
+       let seed: u96 = _seed as u96;
+       let move: u8 = _move as u8;
        let seedHash = pedersen_hash([seed as Field], 10);
        let rollSelector = compute_selector("roll(u96,u96)");
        let _ = context.call_private_function(dicesAddress, rollSelector, [0, seed as Field]); 
@@ -151,7 +154,8 @@ contract zkPetitsChevaux {
     }
 
     #[aztec(public)]
-    internal fn _play(seedHash: Field, player: Field, move: u8) {
+    internal fn _play(seedHash: Field, player: Field, _move: Field) {
+        let move: u8 = _move as u8;
         let currentRound = storage.round.read();
         assert(currentRound as u120 % 4 == player as u120, "Not your turn");
         let selector = compute_selector("readDice(Field,u96)");
