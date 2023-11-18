@@ -1,16 +1,111 @@
 import { useEffect, useRef } from 'react';
 
-type Props = {
-  game: {
-    players: number[];
-    seedHashes: string[];
-    board: number[];
-    finishLines: number[];
-    turn: string;
-    lastMove: string;
-  };
+export type Game = {
+  players: string[];
+  seedHashes: string[];
+  board: number[][];
+  finishLines: number[];
+  turn: string;
+  lastMove: number;
 };
 
+type Props = {
+  game: Game;
+};
+
+const pos = [
+  // PLAYER 1
+  [6, 14],
+  [6, 13],
+  [6, 12],
+  [6, 11],
+  [6, 10],
+  [6, 9],
+  [6, 8],
+  [5, 8],
+  [4, 8],
+  [3, 8],
+  [2, 8],
+  [1, 8],
+  [0, 8],
+  [0, 7],
+  // PLAYER 2
+  [0, 6],
+  [1, 6],
+  [2, 6],
+  [3, 6],
+  [4, 6],
+  [5, 6],
+  [6, 6],
+  [6, 5],
+  [6, 4],
+  [6, 3],
+  [6, 2],
+  [6, 1],
+  [6, 0],
+  [7, 0],
+  // PLAYER 3
+  [8, 0],
+  [8, 1],
+  [8, 2],
+  [8, 3],
+  [8, 4],
+  [8, 5],
+  [8, 6],
+  [9, 6],
+  [10, 6],
+  [11, 6],
+  [12, 6],
+  [13, 6],
+  [14, 6],
+  [14, 7],
+  // PLAYER 4
+  [14, 8],
+  [13, 8],
+  [12, 8],
+  [11, 8],
+  [10, 8],
+  [9, 8],
+  [8, 8],
+  [8, 9],
+  [8, 10],
+  [8, 11],
+  [8, 12],
+  [8, 13],
+  [8, 14],
+  [7, 14],
+];
+
+const finishLines = [
+  // PLAYER 1
+  [7, 13],
+  [7, 12],
+  [7, 11],
+  [7, 10],
+  [7, 9],
+  [7, 8],
+  // PLAYER 2
+  [1, 7],
+  [2, 7],
+  [3, 7],
+  [4, 7],
+  [5, 7],
+  [6, 7],
+  // PLAYER 3
+  [7, 1],
+  [7, 2],
+  [7, 3],
+  [7, 4],
+  [7, 5],
+  [7, 6],
+  // PLAYER 4
+  [13, 7],
+  [12, 7],
+  [11, 7],
+  [10, 7],
+  [9, 7],
+  [8, 7],
+];
 const Canvas = ({ game }: Props) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const imageRef = useRef<HTMLImageElement>(new Image());
@@ -44,6 +139,21 @@ const Canvas = ({ game }: Props) => {
       ctx.restore();
 
       ctx.drawImage(imageRef.current, 0 * blockSize, 9 * blockSize, blockSize * 6, blockSize * 6);
+
+      // draw idling horses
+      game.board.forEach((b, p) => {
+        let idling = 0;
+        for (let i = 0; i < 4; i++) {
+          const playerHorseColors = ['purple', 'black', 'pink', 'orange'];
+          ctx.fillStyle = playerHorseColors[p];
+          if (b[i] === 0) {
+            if (p == 0) ctx.fillRect(idling++ * blockSize, 14 * blockSize, blockSize, blockSize);
+            if (p == 1) ctx.fillRect(idling++ * blockSize, 0 * blockSize, blockSize, blockSize);
+            if (p == 2) ctx.fillRect((14 - idling++) * blockSize, 0 * blockSize, blockSize, blockSize);
+            if (p == 3) ctx.fillRect((14 - idling++) * blockSize, 14 * blockSize, blockSize, blockSize);
+          }
+        }
+      });
     };
   }, []);
 
@@ -56,75 +166,38 @@ const Canvas = ({ game }: Props) => {
 
     const playerColors = ['red', 'green', 'blue', 'yellow'];
     const winPlayerColors = ['darkred', 'darkgreen', 'darkblue', 'orange'];
+    const playerHorseColors = ['purple', 'black', 'pink', 'orange'];
 
     // clear the canvas
     ctx.clearRect(0, 0, size, size);
 
-    // draw the grid
-    for (let x = 0; x < 15; x++) {
-      for (let y = 0; y < 15; y++) {
-        // PLAYER 1 AREA (bottom-left)
-        if (x === 6 && y >= 9) {
-          ctx.fillStyle = playerColors[0];
-          ctx.fillRect(x * blockSize, y * blockSize, blockSize, blockSize);
-        } else if (x <= 6 && y == 8) {
-          ctx.fillStyle = playerColors[0];
-          ctx.fillRect(x * blockSize, y * blockSize, blockSize, blockSize);
-        }
-        // PLAYER 2 AREA (top-left)
-        else if (x === 6 && y <= 6) {
-          ctx.fillStyle = playerColors[1];
-          ctx.fillRect(x * blockSize, y * blockSize, blockSize, blockSize);
-        } else if (x < 6 && y == 6) {
-          ctx.fillStyle = playerColors[1];
-          ctx.fillRect(x * blockSize, y * blockSize, blockSize, blockSize);
-        }
-        // PLAYER 3 AREA (top-right)
-        else if (x === 8 && y <= 6) {
-          ctx.fillStyle = playerColors[2];
-          ctx.fillRect(x * blockSize, y * blockSize, blockSize, blockSize);
-        } else if (x >= 8 && y == 6) {
-          ctx.fillStyle = playerColors[2];
-          ctx.fillRect(x * blockSize, y * blockSize, blockSize, blockSize);
-        }
-        // PLAYER 4 AREA (bottom-right)
-        else if (x === 8 && y >= 9) {
-          ctx.fillStyle = playerColors[3];
-          ctx.fillRect(x * blockSize, y * blockSize, blockSize, blockSize);
-        } else if (x >= 8 && y == 8) {
-          ctx.fillStyle = playerColors[3];
-          ctx.fillRect(x * blockSize, y * blockSize, blockSize, blockSize);
-        } else {
-          ctx.strokeRect(x * blockSize, y * blockSize, blockSize, blockSize);
-        }
+    // draw board
+    for (let i = 0; i < 4; i++) {
+      ctx.fillStyle = playerColors[i];
+      for (let j = 14 * i; j < 14 * i + 14; j++) {
+        ctx.fillRect(pos[j][0] * blockSize, pos[j][1] * blockSize, blockSize, blockSize);
       }
     }
 
-    // draw winning cases
-    ctx.fillStyle = playerColors[0];
-    ctx.fillRect(0 * blockSize, 7 * blockSize, blockSize, blockSize);
-    ctx.fillStyle = winPlayerColors[0];
-    for (let x = 1; x < 7; x++) {
-      ctx.fillRect(x * blockSize, 7 * blockSize, blockSize, blockSize);
+    // draw finish lines
+    for (let i = 0; i < 4; i++) {
+      ctx.fillStyle = winPlayerColors[i];
+      for (let j = 6 * i; j < 6 * i + 6; j++) {
+        ctx.fillRect(finishLines[j][0] * blockSize, finishLines[j][1] * blockSize, blockSize, blockSize);
+      }
     }
-    ctx.fillStyle = playerColors[1];
-    ctx.fillRect(7 * blockSize, 0 * blockSize, blockSize, blockSize);
-    ctx.fillStyle = winPlayerColors[1];
-    for (let x = 1; x < 7; x++) {
-      ctx.fillRect(7 * blockSize, x * blockSize, blockSize, blockSize);
-    }
-    ctx.fillStyle = playerColors[2];
-    ctx.fillRect(14 * blockSize, 7 * blockSize, blockSize, blockSize);
-    ctx.fillStyle = winPlayerColors[2];
-    for (let x = 1; x < 7; x++) {
-      ctx.fillRect(7 * blockSize + x * blockSize, 7 * blockSize, blockSize, blockSize);
-    }
-    ctx.fillStyle = playerColors[3];
-    ctx.fillRect(7 * blockSize, 14 * blockSize, blockSize, blockSize);
-    ctx.fillStyle = winPlayerColors[3];
-    for (let x = 1; x < 7; x++) {
-      ctx.fillRect(7 * blockSize, (7 + x) * blockSize, blockSize, blockSize);
-    }
+
+    // draw players
+    game.board.forEach((b, p) => {
+      for (let i = 0; i < 4; i++) {
+        ctx.fillStyle = playerHorseColors[p];
+        if (b[i] === 0) {
+          continue;
+        } else {
+          ctx.fillRect(pos[b[i] - 1][0] * blockSize, pos[b[i] - 1][1] * blockSize, blockSize, blockSize);
+        }
+      }
+    });
   }, [game]);
 
   return <canvas ref={canvasRef} width={500} height={500} />;
