@@ -7,6 +7,8 @@ export type Game = {
   finishLines: number[];
   turn: string;
   lastMove: number;
+  winner: string;
+  lastTime: string;
 };
 
 type Props = {

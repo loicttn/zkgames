@@ -1,12 +1,12 @@
-import { CONTRACT_ADDRESS_PARAM_NAMES, pxe } from '../../config.js';
-import { callContractFunction, deployContract, viewContractFunction } from '../../scripts/index.js';
-import { convertArgs } from '../../scripts/util.js';
-import styles from './contract_function_form.module.scss';
 import { Button, Loader } from '@aztec/aztec-ui';
 import { AztecAddress, CompleteAddress, Fr } from '@aztec/aztec.js';
 import { ContractArtifact, FunctionArtifact } from '@aztec/foundation/abi';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { CONTRACT_ADDRESS_PARAM_NAMES, pxe } from '../../config.js';
+import { callContractFunction, deployContract, viewContractFunction } from '../../scripts/index.js';
+import { convertArgs } from '../../scripts/util.js';
+import styles from './contract_function_form.module.scss';
 
 const DEFAULT_FIELD_VALUE = 100;
 interface BasicParamDef {
@@ -94,7 +94,7 @@ function generateYupSchema(functionAbi: FunctionArtifact, defaultAddress: string
   return { validationSchema: Yup.object().shape(parameterSchema), initialValues };
 }
 
-async function handleFunctionCall(
+export async function handleFunctionCall(
   contractAddress: AztecAddress | undefined,
   artifact: ContractArtifact,
   functionName: string,
@@ -102,8 +102,9 @@ async function handleFunctionCall(
   wallet: CompleteAddress,
 ) {
   const functionAbi = artifact.functions.find(f => f.name === functionName)!;
+  console.log(args, functionAbi);
   const typedArgs: any[] = convertArgs(functionAbi, args);
-
+  console.log(typedArgs);
   if (functionName === 'constructor' && !!wallet) {
     if (functionAbi === undefined) {
       throw new Error('Cannot find constructor in the ABI.');
@@ -118,8 +119,10 @@ async function handleFunctionCall(
   }
 
   if (functionAbi.functionType === 'unconstrained') {
+    console.log('XD');
     return await viewContractFunction(contractAddress!, artifact, functionName, typedArgs, pxe, wallet);
   } else {
+    console.log('WESH');
     const txnReceipt = await callContractFunction(contractAddress!, artifact, functionName, typedArgs, pxe, wallet);
     return `Transaction ${txnReceipt.status} on block number ${txnReceipt.blockNumber}`;
   }

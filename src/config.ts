@@ -1,10 +1,12 @@
-import { TokenContractArtifact } from './artifacts/Token.js';
 import { PXE, createPXEClient } from '@aztec/aztec.js';
 import { ContractArtifact } from '@aztec/foundation/abi';
+import { DicesContractArtifact } from './artifacts/Dices.js';
+import { zkPetitsChevauxContractArtifact } from './artifacts/zkPetitsChevaux.js';
 
 // update this if using a different contract
 
-export const contractArtifact: ContractArtifact = TokenContractArtifact;
+export const diceArtifact: ContractArtifact = DicesContractArtifact;
+export const contractArtifact: ContractArtifact = zkPetitsChevauxContractArtifact;
 
 export const PXE_URL: string = process.env.PXE_URL || 'http://localhost:8080';
 export const pxe: PXE = createPXEClient(PXE_URL);

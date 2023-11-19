@@ -88,7 +88,7 @@ export function Home() {
           </div>
         )}
         {currentGame === 'dada' && !isLoadingWallet && selectedWallet?.address ? (
-          <DadaGame game={game} wallet={selectedWallet} />
+          <DadaGame wallet={selectedWallet} />
         ) : (
           <></>
         )}

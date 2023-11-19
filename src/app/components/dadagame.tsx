@@ -1,16 +1,20 @@
 import { AztecAddress, CompleteAddress } from '@aztec/circuits.js';
 import { useState } from 'react';
-import { contractArtifact } from '../../config.js';
+import { contractArtifact, diceArtifact } from '../../config.js';
 import Canvas, { Game } from './canvas.js';
-import { ContractFunctionForm } from './contract_function_form.js';
+import { ContractFunctionForm, handleFunctionCall } from './contract_function_form.js';
 import styles from './dadagame.module.scss';
 
-const DadaGame = ({ game, wallet }: { game: Game; wallet: CompleteAddress }) => {
+const DICES_ADDRESS = '0x0c2ad7646f10706f85ebbc4b3dcb21292aff2aac6bebe45b1c081592a753ebc8';
+
+const DadaGame = ({ wallet }: { wallet: CompleteAddress }) => {
   const [state, setState] = useState<'lobby' | 'join' | 'create' | 'game'>('lobby');
   const [error, setError] = useState('');
   const [wipContractAddress, setWipContractAddress] = useState<string>('');
   const [contractAddress, setContractAddress] = useState<AztecAddress | undefined>(undefined);
   const [processingFunction, setProcessingFunction] = useState('');
+  const [seed, _] = useState<number>(Math.ceil(Math.random() * 100000));
+  const [game, setGame] = useState<Game>({} as Game);
 
   // UTILS
 
@@ -44,8 +48,9 @@ const DadaGame = ({ game, wallet }: { game: Game; wallet: CompleteAddress }) => 
       return;
     }
     console.log(wipContractAddress);
-    setContractAddress(AztecAddress.fromString(wipContractAddress));
-    setState('game');
+    const a = AztecAddress.fromString(wipContractAddress);
+    setContractAddress(a);
+    register(a);
   };
 
   const handleSetWipContract = (e: any) => {
@@ -57,7 +62,7 @@ const DadaGame = ({ game, wallet }: { game: Game; wallet: CompleteAddress }) => 
       return;
     }
     setContractAddress(address);
-    setState('game');
+    register(address);
   };
 
   const handleSubmitForm = (functionName: string) => {
@@ -66,7 +71,65 @@ const DadaGame = ({ game, wallet }: { game: Game; wallet: CompleteAddress }) => 
 
   // CREATE GAME
   const constructorAbi = contractArtifact.functions.find(f => f.name === 'constructor')!;
+  const registerAbi = contractArtifact.functions.find(f => f.name === 'register')!;
+  const playersAbi = contractArtifact.functions.find(f => f.name === 'players')!;
+  const seedHashesAbi = contractArtifact.functions.find(f => f.name === 'seedHashes')!;
+  const dicesAbi = contractArtifact.functions.find(f => f.name === 'dices')!;
+  const horsesAbi = contractArtifact.functions.find(f => f.name === 'horses')!;
+  const winnerAbi = contractArtifact.functions.find(f => f.name === 'winner')!;
+  const roundAbi = contractArtifact.functions.find(f => f.name === 'round')!;
+  const lastTimestampAbi = contractArtifact.functions.find(f => f.name === 'last_timestamp')!;
+  const diceAbi = diceArtifact.functions.find(f => f.name === 'dice')!;
+
   const hasResult = !!(contractAddress || error);
+
+  // SETUP
+  const register = async (addr: AztecAddress) => {
+    await handleFunctionCall(
+      addr,
+      contractArtifact,
+      registerAbi.name,
+      {
+        dicesAddress: DICES_ADDRESS,
+        _seed: seed.toString(),
+      },
+      wallet,
+    );
+    setState('game');
+    getState(addr);
+  };
+
+  const getState = async (address: AztecAddress) => {
+    const players = await handleFunctionCall(address, contractArtifact, playersAbi.name, {}, wallet);
+    const seedHashes = await handleFunctionCall(address, contractArtifact, seedHashesAbi.name, {}, wallet);
+    const dices = await handleFunctionCall(address, contractArtifact, dicesAbi.name, {}, wallet);
+    const horses = await handleFunctionCall(address, contractArtifact, horsesAbi.name, {}, wallet);
+    const winner = await handleFunctionCall(address, contractArtifact, winnerAbi.name, {}, wallet);
+    const round = await handleFunctionCall(address, contractArtifact, roundAbi.name, {}, wallet);
+    const last_time = await handleFunctionCall(address, contractArtifact, lastTimestampAbi.name, {}, wallet);
+    /*const dice = await handleFunctionCall(
+      AztecAddress.fromString(DICES_ADDRESS),
+      diceArtifact,
+      diceAbi.name,
+      { addr: address.toString(), _game_id: '0' },
+      wallet,
+    );*/
+    const x = {
+      players: players.map((p: any) => AztecAddress.fromBigInt(p).toString()),
+      seedHashes: seedHashes,
+      board: horses.map(x => {
+        const h = Number(x);
+        return [(h >> 24) & 0xff, (h >> 16) & 0xff, (h >> 8) & 0xff, h & 0xff];
+      }),
+      finishLines: [],
+      turn: players[round % players.length],
+      lastMove: 3,
+      winner: AztecAddress.fromBigInt(winner).toString(),
+      lastTime: last_time,
+    };
+    console.log(x);
+    setGame(x);
+  };
 
   return (
     <div className={styles.game}>
