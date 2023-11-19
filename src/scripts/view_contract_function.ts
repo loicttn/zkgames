@@ -12,7 +12,6 @@ export async function viewContractFunction(
 ) {
   // we specify the account that is calling the view function by passing in the wallet to the Contract
   const selectedWallet = await getWallet(wallet, pxe);
-  console.log('->', address);
   const contract = await Contract.at(address, artifact, selectedWallet);
 
   return await contract.methods[functionName](...typedArgs).view({ from: wallet.address });

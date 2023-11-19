@@ -95,8 +95,9 @@ const DadaGame = ({ wallet }: { wallet: CompleteAddress }) => {
       },
       wallet,
     );
-    setState('game');
-    getState(addr);
+    setInterval(() => {
+      getState(addr);
+    }, 5000);
   };
 
   const getState = async (address: AztecAddress) => {
@@ -107,14 +108,14 @@ const DadaGame = ({ wallet }: { wallet: CompleteAddress }) => {
     const winner = await handleFunctionCall(address, contractArtifact, winnerAbi.name, {}, wallet);
     const round = await handleFunctionCall(address, contractArtifact, roundAbi.name, {}, wallet);
     const last_time = await handleFunctionCall(address, contractArtifact, lastTimestampAbi.name, {}, wallet);
-    /*const dice = await handleFunctionCall(
+    const dice = await handleFunctionCall(
       AztecAddress.fromString(DICES_ADDRESS),
       diceArtifact,
       diceAbi.name,
       { addr: address.toString(), _game_id: '0' },
       wallet,
-    );*/
-    const x = {
+    );
+    setGame({
       players: players.map((p: any) => AztecAddress.fromBigInt(p).toString()),
       seedHashes: seedHashes,
       board: horses.map(x => {
@@ -122,26 +123,27 @@ const DadaGame = ({ wallet }: { wallet: CompleteAddress }) => {
         return [(h >> 24) & 0xff, (h >> 16) & 0xff, (h >> 8) & 0xff, h & 0xff];
       }),
       finishLines: [],
-      turn: players[round % players.length],
-      lastMove: 3,
+      turn:
+        Number(round) === 0 ? '' : AztecAddress.fromBigInt(players[(Number(round) - 1) % players.length]).toString(),
+      lastMove: Number(dice),
       winner: AztecAddress.fromBigInt(winner).toString(),
       lastTime: last_time,
-    };
-    console.log(x);
-    setGame(x);
+    });
+    if (state !== 'game') {
+      setState('game');
+    }
   };
+
+  console.log(state, game);
 
   return (
     <div className={styles.game}>
-      <div className={styles.header}>
+      <div className={styles.hheader}>
         <h1>My little Dada</h1>
         {state === 'game' ? (
           <div className={styles.topheader}>
             <div className={styles.listh}>
-              <p className={styles.player}>
-                Game Address: {contractAddress?.toString().slice(0, 16)}...
-                {contractAddress?.toString().slice(-4, contractAddress.toString().length)}
-              </p>
+              <p className={styles.player}>Game: {contractAddress?.toString()}</p>
             </div>
           </div>
         ) : (
@@ -194,7 +196,7 @@ const DadaGame = ({ wallet }: { wallet: CompleteAddress }) => {
           <div className={styles.header}>
             <div className={styles.list}>
               <h3>Players</h3>
-              {game.players.map((player: any, index: any) => (
+              {game.players?.map((player: any, index: any) => (
                 <div key={index} className={styles.player}>
                   <p>
                     Player {index + 1}: {player.slice(0, 6)}...{player.slice(-4)}

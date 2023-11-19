@@ -55,14 +55,19 @@ input {
     margin-top: 20px;
 }
 
-
+.hheader {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 100px;
+}
 
 .topheader {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
-    margin-top: 100px;
+    align-items: left;
+    font-size: 8px;
 }
 
 .header {
@@ -106,7 +111,6 @@ h1 {
     font-weight: bolder;
     font-size: 30px;
     color: #2F1F49;
-    margin-top: 100px;
 }
 
 button {

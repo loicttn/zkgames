@@ -102,9 +102,7 @@ export async function handleFunctionCall(
   wallet: CompleteAddress,
 ) {
   const functionAbi = artifact.functions.find(f => f.name === functionName)!;
-  console.log(args, functionAbi);
   const typedArgs: any[] = convertArgs(functionAbi, args);
-  console.log(typedArgs);
   if (functionName === 'constructor' && !!wallet) {
     if (functionAbi === undefined) {
       throw new Error('Cannot find constructor in the ABI.');
@@ -119,10 +117,8 @@ export async function handleFunctionCall(
   }
 
   if (functionAbi.functionType === 'unconstrained') {
-    console.log('XD');
     return await viewContractFunction(contractAddress!, artifact, functionName, typedArgs, pxe, wallet);
   } else {
-    console.log('WESH');
     const txnReceipt = await callContractFunction(contractAddress!, artifact, functionName, typedArgs, pxe, wallet);
     return `Transaction ${txnReceipt.status} on block number ${txnReceipt.blockNumber}`;
   }

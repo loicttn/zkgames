@@ -114,49 +114,54 @@ const Canvas = ({ game }: Props) => {
   const size = 500; // size of the canvas
   const blockSize = size / 15; // size of each block
 
+  const reloadImage = () => {
+    console.log('A');
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    console.log('B');
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    console.log('C');
+    ctx.save();
+    ctx.translate(3 * blockSize, 3 * blockSize);
+    ctx.rotate((-180 * Math.PI) / 180);
+    ctx.scale(-1, 1);
+    ctx.drawImage(imageRef.current, -3 * blockSize, -3 * blockSize, blockSize * 6, blockSize * 6);
+    ctx.restore();
+
+    ctx.save();
+    ctx.translate(12 * blockSize, 3 * blockSize);
+    ctx.rotate((-180 * Math.PI) / 180);
+    ctx.drawImage(imageRef.current, -3 * blockSize, -3 * blockSize, blockSize * 6, blockSize * 6);
+    ctx.restore();
+
+    ctx.save();
+    ctx.scale(-1, 1);
+    ctx.drawImage(imageRef.current, -15 * blockSize, 9 * blockSize, blockSize * 6, blockSize * 6);
+    ctx.restore();
+
+    ctx.drawImage(imageRef.current, 0 * blockSize, 9 * blockSize, blockSize * 6, blockSize * 6);
+
+    // draw idling horses
+    game?.board?.forEach((b, p) => {
+      let idling = 0;
+      for (let i = 0; i < 4; i++) {
+        const playerHorseColors = ['purple', 'black', 'pink', 'orange'];
+        ctx.fillStyle = playerHorseColors[p];
+        if (b[i] === 0) {
+          if (p == 0) ctx.fillRect(idling++ * blockSize, 14 * blockSize, blockSize, blockSize);
+          if (p == 1) ctx.fillRect(idling++ * blockSize, 0 * blockSize, blockSize, blockSize);
+          if (p == 2) ctx.fillRect((14 - idling++) * blockSize, 0 * blockSize, blockSize, blockSize);
+          if (p == 3) ctx.fillRect((14 - idling++) * blockSize, 14 * blockSize, blockSize, blockSize);
+        }
+      }
+    });
+  };
+
   useEffect(() => {
     imageRef.current.src = 'horse.png';
-    imageRef.current.onload = function () {
-      const canvas = canvasRef.current;
-      if (!canvas) return;
-
-      const ctx = canvas.getContext('2d');
-      if (!ctx) return;
-      ctx.save();
-      ctx.translate(3 * blockSize, 3 * blockSize);
-      ctx.rotate((-180 * Math.PI) / 180);
-      ctx.scale(-1, 1);
-      ctx.drawImage(imageRef.current, -3 * blockSize, -3 * blockSize, blockSize * 6, blockSize * 6);
-      ctx.restore();
-
-      ctx.save();
-      ctx.translate(12 * blockSize, 3 * blockSize);
-      ctx.rotate((-180 * Math.PI) / 180);
-      ctx.drawImage(imageRef.current, -3 * blockSize, -3 * blockSize, blockSize * 6, blockSize * 6);
-      ctx.restore();
-
-      ctx.save();
-      ctx.scale(-1, 1);
-      ctx.drawImage(imageRef.current, -15 * blockSize, 9 * blockSize, blockSize * 6, blockSize * 6);
-      ctx.restore();
-
-      ctx.drawImage(imageRef.current, 0 * blockSize, 9 * blockSize, blockSize * 6, blockSize * 6);
-
-      // draw idling horses
-      game.board.forEach((b, p) => {
-        let idling = 0;
-        for (let i = 0; i < 4; i++) {
-          const playerHorseColors = ['purple', 'black', 'pink', 'orange'];
-          ctx.fillStyle = playerHorseColors[p];
-          if (b[i] === 0) {
-            if (p == 0) ctx.fillRect(idling++ * blockSize, 14 * blockSize, blockSize, blockSize);
-            if (p == 1) ctx.fillRect(idling++ * blockSize, 0 * blockSize, blockSize, blockSize);
-            if (p == 2) ctx.fillRect((14 - idling++) * blockSize, 0 * blockSize, blockSize, blockSize);
-            if (p == 3) ctx.fillRect((14 - idling++) * blockSize, 14 * blockSize, blockSize, blockSize);
-          }
-        }
-      });
-    };
+    imageRef.current.onload = reloadImage;
   }, []);
 
   useEffect(() => {
@@ -190,7 +195,7 @@ const Canvas = ({ game }: Props) => {
     }
 
     // draw players
-    game.board.forEach((b, p) => {
+    game?.board?.forEach((b, p) => {
       for (let i = 0; i < 4; i++) {
         ctx.fillStyle = playerHorseColors[p];
         if (b[i] === 0) {
@@ -200,6 +205,8 @@ const Canvas = ({ game }: Props) => {
         }
       }
     });
+
+    reloadImage();
   }, [game]);
 
   return <canvas ref={canvasRef} width={500} height={500} />;

@@ -12,12 +12,10 @@ export async function callContractFunction(
 ) {
   // selectedWallet is how we specify the "sender" of the transaction
   const selectedWallet = await getWallet(wallet, pxe);
-  console.log('AAAAO, address, abi, selectedWallet', address, abi, selectedWallet);
 
   // TODO: switch to the generated typescript class?
   const contract = await Contract.at(address, abi, selectedWallet);
 
-  console.log('YOOO');
   return contract.methods[functionName](...typedArgs)
     .send()
     .wait();
