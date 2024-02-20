@@ -1,4 +1,4 @@
-# Aztec Boxes
+# ZK Games
 
 This is a minimal [Aztec](https://aztec.network/) Noir smart contract and frontend bootstrapped with [`aztec-cli unbox`](https://github.com/AztecProtocol/aztec-packages/tree/master/yarn-project/cli). It is recommended you use the `aztec-cli unbox PrivateToken` command so that the repository is copied with needed modifications from the monorepo subpackage.
 
