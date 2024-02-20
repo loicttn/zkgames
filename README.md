@@ -1,8 +1,5 @@
 # ZK Games
-
-This is a minimal [Aztec](https://aztec.network/) Noir smart contract and frontend bootstrapped with [`aztec-cli unbox`](https://github.com/AztecProtocol/aztec-packages/tree/master/yarn-project/cli). It is recommended you use the `aztec-cli unbox PrivateToken` command so that the repository is copied with needed modifications from the monorepo subpackage.
-
-Some contract specific settings for `PrivateToken` are in a [config](src/config.ts) will require manual updates depending on your changes to the source code. `aztec-cli` can be installed with `npm i -g @aztec/cli`, if you don't have it already.
+This project is a game built on top of Noir lang that generates proofs of the current state of the game. The game is "Jeu des petits chevaux" a french 🥖🥖 board game which consists of moving several pawns (called small horses) per player (between 1 and 4 per player in general), and taking them to the part reserved for their color. The first player to arrive on the last square wins the game.
 
 ## Setup
 
